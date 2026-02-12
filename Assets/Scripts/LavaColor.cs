@@ -5,10 +5,16 @@ using UnityEngine;
 public class LavaColor : MonoBehaviour
 {
     public Color defaultColor = Color.red;
-    public Color[] arrayColor;
+    public Color[] arrayColor = new Color[]
+        {
+            Color.red,
+            Color.yellow,
+            Color.blue
+        };
 
     void Start()
     {
+
         StartCoroutine(ChangeColor());
     }
 
