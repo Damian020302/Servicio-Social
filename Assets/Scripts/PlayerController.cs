@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     void SetCounterPoints()
     {
         counterPoints.text = "Count: " + count.ToString();
-        if(count >= 12)
+        if (count >= 12 && SceneManager.GetActiveScene().name == "Level1")
         {
             winTextObject.SetActive(true);
             Time.timeScale = 0;
@@ -93,6 +93,13 @@ public class PlayerController : MonoBehaviour
         {
             lives = 0;
             SetCounterLives();
+        }
+        else if(SceneManager.GetActiveScene().name == "Level2" && other.gameObject.CompareTag("Goal"))
+        {
+            other.gameObject.SetActive(false);
+            winTextObject.SetActive(true);
+            Time.timeScale = 0;
+            winMenu.SetActive(true);
         }
     }
 
