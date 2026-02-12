@@ -1,0 +1,89 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using TMPro;
+
+public class PlayerController : MonoBehaviour
+{
+    public float speed = 10.0f;
+    public TextMeshProUGUI counterPoints;
+    public TextMeshProUGUI counterLives;
+    public GameObject winTextObject;
+    public GameObject loseTextObject;
+    private Rigidbody rb;
+    private int count;
+    private int lives;
+    private float movementX;
+    private float movementY;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        count = 0;
+        lives = 9;
+        SetCounterPoints();
+        SetCounterLives();
+        winTextObject.SetActive(false);
+    }
+
+    void OnMove(InputValue movementValue)
+    {
+        Vector2 movementVector = movementValue.Get<Vector2>();
+        movementX = movementVector.x;
+        movementY = movementVector.y;
+    }
+
+    void SetCounterPoints()
+    {
+        counterPoints.text = "Count: " + count.ToString();
+        if(count >= 12)
+        {
+            winTextObject.SetActive(true);
+        }
+    }
+
+    void SetCounterLives()
+    {
+        counterLives.text = "Lives: " + lives.ToString();
+        if(lives <= 0)
+        {
+            loseTextObject.SetActive(true);
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+        rb.AddForce(movement * speed);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PickUp"))
+        {
+            other.gameObject.SetActive(false);
+            count++;
+            SetCounterPoints();
+        }
+        else if (other.gameObject.CompareTag("LifeUp") && lives < 9)
+        {
+            other.gameObject.SetActive(false);
+            lives++;
+            SetCounterLives();
+        } 
+        else if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.SetActive(false);
+            lives--;
+            SetCounterLives();
+        }
+        else if(other.gameObject.CompareTag("Lava"))
+        {
+            lives = 0;
+            SetCounterLives();
+        }
+    }
+}
