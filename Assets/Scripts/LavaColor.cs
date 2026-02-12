@@ -15,7 +15,7 @@ public class LavaColor : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(5.0f);
+            yield return new WaitForSeconds(0.5f);
             defaultColor = Random.ColorHSV();
             GetComponent<Renderer>().material.color = defaultColor;
         }

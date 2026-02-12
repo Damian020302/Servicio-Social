@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI counterPoints;
     public TextMeshProUGUI counterLives;
     public GameObject winTextObject;
+    public GameObject winMenu;
     public GameObject loseTextObject;
+    public GameObject loseMenu;
+    public GameObject pauseButton;
     private Rigidbody rb;
     private int count;
     private int lives;
@@ -41,6 +45,8 @@ public class PlayerController : MonoBehaviour
         if(count >= 12)
         {
             winTextObject.SetActive(true);
+            Time.timeScale = 0;
+            winMenu.SetActive(true);
         }
     }
 
@@ -51,6 +57,9 @@ public class PlayerController : MonoBehaviour
         {
             loseTextObject.SetActive(true);
             this.gameObject.SetActive(false);
+            Time.timeScale = 0;
+            loseMenu.SetActive(true);
+            pauseButton.SetActive(false);
         }
     }
 
@@ -85,5 +94,16 @@ public class PlayerController : MonoBehaviour
             lives = 0;
             SetCounterLives();
         }
+    }
+
+    public void Level2()
+    {
+        SceneManager.LoadScene("Level2");
+        Time.timeScale = 1;
+    }
+
+    public void Victoria()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
