@@ -83,12 +83,6 @@ public class PlayerController : MonoBehaviour
             lives++;
             SetCounterLives();
         } 
-        else if (other.gameObject.CompareTag("Enemy"))
-        {
-            other.gameObject.SetActive(false);
-            lives--;
-            SetCounterLives();
-        }
         else if(other.gameObject.CompareTag("Lava"))
         {
             lives = 0;
@@ -100,6 +94,17 @@ public class PlayerController : MonoBehaviour
             winTextObject.SetActive(true);
             Time.timeScale = 0;
             winMenu.SetActive(true);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            //collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject);
+            lives--;
+            SetCounterLives();
         }
     }
 

@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class LavaColor : MonoBehaviour
 {
-    public Color defaultColor = Color.red;
-    public Color[] arrayColor = new Color[]
-        {
-            Color.red,
-            Color.yellow,
-            Color.blue
-        };
+    public Color[] arrayColor = new Color[3];
+    private Renderer miRenderer;
 
     void Start()
     {
-
+        miRenderer = GetComponent<Renderer>();
         StartCoroutine(ChangeColor());
     }
 
@@ -22,10 +17,20 @@ public class LavaColor : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(0.5f);
-            defaultColor = Random.ColorHSV();
-            GetComponent<Renderer>().material.color = defaultColor;
+            foreach(Color defaultColor in arrayColor)
+            {
+                miRenderer.material.color = defaultColor;
+                yield return new WaitForSeconds(0.5f);
+            }   
         }
-        
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            //collision.gameObject.SetActive(false);
+            Destroy(other.gameObject);
+        }
     }
 }
