@@ -10,10 +10,12 @@ public class EnemySpawner : MonoBehaviour
     private float enemyInterval = 2.0f;
     public int counter;
     public GameObject[] enemyNum;
-    public Transform player;
+    public GameObject player;
+    private Vector3 offset;
 
     void Start()
     {
+        offset = transform.position - player.transform.position;
         StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
     }
 
@@ -21,6 +23,11 @@ public class EnemySpawner : MonoBehaviour
     {
         enemyNum = GameObject.FindGameObjectsWithTag("Enemy");
         counter = enemyNum.Length;
+    }
+    
+    void LateUpdate()
+    {
+        transform.position = player.transform.position + offset;
     }
 
     IEnumerator spawnEnemy(float interval, GameObject enemy)

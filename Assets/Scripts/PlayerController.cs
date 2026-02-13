@@ -71,13 +71,13 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PickUp"))
+        /*if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
             count++;
             SetCounterPoints();
         }
-        else if (other.gameObject.CompareTag("LifeUp") && lives < 9)
+        else */if (other.gameObject.CompareTag("LifeUp") && lives < 9)
         {
             other.gameObject.SetActive(false);
             lives++;
@@ -105,6 +105,12 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             lives--;
             SetCounterLives();
+        }
+        else if(collision.gameObject.CompareTag("PickUp"))
+        {
+            Destroy(collision.gameObject);
+            count++;
+            SetCounterPoints();
         }
     }
 

@@ -27,7 +27,7 @@ public class LavaColor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("PickUp"))
         {
             //collision.gameObject.SetActive(false);
             Destroy(other.gameObject);
