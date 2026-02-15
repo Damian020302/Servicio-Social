@@ -4,27 +4,39 @@ using UnityEngine;
 
 public class PickUpSpawner : MonoBehaviour
 {
-    [SerializeField]
-    public GameObject[] pickUpPrefab = new GameObject[5];
-    [SerializeField]
-    private float pickUpInterval = 2.0f;
-    public Transform player;
-    public float speed = 20.0f;
-    public float minDist = 1.0f;
+    public GameObject[] pickUpPrefab/* = new GameObject[5]*/;
+    [SerializeField] private float pickUpInterval = 2.0f;
+    public float spawnRatio = 3.0f;
+    public GameObject player;
+    private Vector3 offset;
     
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        StartCoroutine(spawnPickUp(pickUpInterval, pickUpPrefab));
+        if (player != null)
+        {
+            offset = transform.position - player.transform.position;
+        }
+        InvokeRepeating("spawnPickUp", 0f, pickUpInterval);
     }
 
-    IEnumerator spawnPickUp(float interval, GameObject[] pickUp)
+    void LateUpdate()
     {
-        foreach(GameObject pU in pickUp)
+        if (player != null)
         {
-            yield return new WaitForSeconds(interval);
-            GameObject newPU = Instantiate(pU);
-            StartCoroutine(spawnPickUp(interval, pickUp));
+            transform.position = player.transform.position + offset;
+        }
+        /*enemyNum = GameObject.FindGameObjectsWithTag("Enemy");
+        counter = enemyNum.Length;*/
+    }
+
+    void spawnPickUp()
+    {
+        float angleP = 360.0f / pickUpPrefab.Length;
+        for (int i = 0; i < pickUpPrefab.Length; i++)
+        {
+            Quaternion rotation = Quaternion.Euler(0, angleP * i, 0);
+            Vector3 spawnPosition = transform.position + (rotation * Vector3.forward * spawnRatio);
+            Instantiate(pickUpPrefab[i], spawnPosition, Quaternion.identity);
         }
     }
 }

@@ -177,7 +177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &32611050
 Transform:
   m_ObjectHideFlags: 0
@@ -211,9 +211,8 @@ MonoBehaviour:
   - {fileID: 7938802579127065755, guid: e81f3e2216aa45e498c6abc65a575218, type: 3}
   - {fileID: 7938802579127065755, guid: e81f3e2216aa45e498c6abc65a575218, type: 3}
   pickUpInterval: 2
-  player: {fileID: 0}
-  speed: 20
-  minDist: 1
+  spawnRatio: 3
+  player: {fileID: 1504017296}
 --- !u!1001 &40995060
 PrefabInstance:
   m_ObjectHideFlags: 0
