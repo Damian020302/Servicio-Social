@@ -29,4 +29,13 @@ public class EnemyMovement : MonoBehaviour
             transform.position += transform.forward * speed * Time.deltaTime;
         }
     }
+
+    void OnDestroy()
+    {
+        EnemySpawner.enemyCounter--;
+        if(EnemySpawner.enemyCounter  < 0 )
+        {
+            EnemySpawner.enemyCounter = 0;
+        }
+    }
 }

@@ -4,39 +4,40 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField]
-    public GameObject enemyPrefab;
-    [SerializeField]
-    private float enemyInterval = 2.0f;
-    public int counter;
-    public GameObject[] enemyNum;
+    [SerializeField] public GameObject enemyPrefab;
+    [SerializeField] private float enemyInterval = 2.0f;
+    public static int enemyCounter = 0;
+    public const int maxEnemies = 5;
+    //public const GameObject[] maxEnemies = 5;
     public GameObject player;
     private Vector3 offset;
 
     void Start()
     {
-        offset = transform.position - player.transform.position;
-        StartCoroutine(spawnEnemy(enemyInterval, enemyPrefab));
+        enemyCounter = 0;
+        if (player != null)
+        {
+            offset = transform.position - player.transform.position;
+        }       
+        InvokeRepeating("spawnEnemy", 0f, enemyInterval);
     }
 
-    void Update()
-    {
-        enemyNum = GameObject.FindGameObjectsWithTag("Enemy");
-        counter = enemyNum.Length;
-    }
-    
     void LateUpdate()
     {
-        transform.position = player.transform.position + offset;
+        if (player != null)
+        {
+            transform.position = player.transform.position + offset;
+        }
+        /*enemyNum = GameObject.FindGameObjectsWithTag("Enemy");
+        counter = enemyNum.Length;*/
     }
 
-    IEnumerator spawnEnemy(float interval, GameObject enemy)
+    void spawnEnemy()
     {
-        yield return new WaitForSeconds(interval);
-        if(counter <= 4)
+        if (enemyCounter < maxEnemies)
         {
-            GameObject newEnemy = Instantiate(enemy);
-            StartCoroutine(spawnEnemy(interval, enemy));
+            Instantiate(enemyPrefab, transform.position, transform.rotation);
+            enemyCounter++;
         }
     }
 }
