@@ -71,13 +71,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        /*if (other.gameObject.CompareTag("PickUp"))
-        {
-            other.gameObject.SetActive(false);
-            count++;
-            SetCounterPoints();
-        }
-        else */if (other.gameObject.CompareTag("LifeUp") && lives < 9)
+        if (other.gameObject.CompareTag("LifeUp") && lives < 9)
         {
             other.gameObject.SetActive(false);
             lives++;
@@ -101,7 +95,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            //collision.gameObject.SetActive(false);
             Destroy(collision.gameObject);
             lives--;
             SetCounterLives();

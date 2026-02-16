@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUpSpawner : MonoBehaviour
 {
-    public GameObject[] pickUpPrefab/* = new GameObject[5]*/;
+    public GameObject[] pickUpPrefab;
     [SerializeField] private float pickUpInterval = 2.0f;
     public float spawnRatio = 3.0f;
     public GameObject player;
@@ -25,8 +25,6 @@ public class PickUpSpawner : MonoBehaviour
         {
             transform.position = player.transform.position + offset;
         }
-        /*enemyNum = GameObject.FindGameObjectsWithTag("Enemy");
-        counter = enemyNum.Length;*/
     }
 
     void spawnPickUp()

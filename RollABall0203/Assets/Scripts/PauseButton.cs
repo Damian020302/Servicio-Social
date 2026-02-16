@@ -7,7 +7,6 @@ public class PauseButton : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject pauseButton;
-    
 
     public void PauseGame()
     {

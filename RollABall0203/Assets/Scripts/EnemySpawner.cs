@@ -8,7 +8,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float enemyInterval = 2.0f;
     public static int enemyCounter = 0;
     public const int maxEnemies = 5;
-    //public const GameObject[] maxEnemies = 5;
     public GameObject player;
     private Vector3 offset;
 
@@ -28,8 +27,6 @@ public class EnemySpawner : MonoBehaviour
         {
             transform.position = player.transform.position + offset;
         }
-        /*enemyNum = GameObject.FindGameObjectsWithTag("Enemy");
-        counter = enemyNum.Length;*/
     }
 
     void spawnEnemy()
